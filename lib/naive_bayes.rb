@@ -8,7 +8,7 @@ class NaiveBayes
               :total_uniq_training_words
 
   # Initializes classifier with classes, training_documents and test_documents
-  # Precalculates also reusable helper data
+  # Precalculates and caches reusable helper data
   def initialize(classes, training_documents, test_documents)
     @classes = classes
     @training_documents = training_documents
@@ -16,10 +16,10 @@ class NaiveBayes
     cache_reusable_data
   end
 
-  # Executes classification for all test_documents. and displays results
+  # Executes classification for all test_documents and displays results
   def run
     test_documents.each do |test_document|
-      test_document.klass = class_with_max_probability_for(test_document)
+      classify_document(test_document)
       display_results_for(test_document)
     end
   end
@@ -52,14 +52,17 @@ class NaiveBayes
     end
   end
 
-  # Returns class with maximum probability for given test document
-  def class_with_max_probability_for(test_document)
-    classes.max_by { |klazz| probability_for(klazz, test_document) }
+  # Assign class with max probability to test document
+  def classify_document(test_document)
+    results = classes.each_with_object({}) { |klass, results| results[klass] = probability_for(klass, test_document) }
+    max_result = results.max_by { |_klass, probability| probability }
+    test_document.classified_klass = max_result[0]
+    test_document.probability = max_result[1]
   end
 
   # Displays results in format: Test document: ['a', 'b', 'c'] ==> class: X, probability: Y
   def display_results_for(document)
-    puts "Test document: #{document.words} ==> class: #{document.klass}, probability: #{probability_for(document.klass, document)}"
+    puts "Document: #{document.id} => labeled class: #{document.klass}, classified class: #{document.classified_klass}, probability: #{document.probability}"
   end
 
   # Returns prior probability for given class
