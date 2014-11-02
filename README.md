@@ -7,6 +7,8 @@ For tokenization of text documents simple [Tokenizer](https://github.com/arbox/t
 
 Intentionally text documents weren't cleaned from meta data before classification.
 
+Natural logarithm was used to prevent floating point small probabilities overflow, so products of probabilities were changed to sum of probabilities logarithms.
+
 Project classes:
 
 * Document - helper class for wrapping text document
