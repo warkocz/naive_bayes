@@ -20,7 +20,7 @@ test_documents = [
 ]
 =end
 
-classes = %w(motorcycles space)
+classes = %w(motorcycles space politics)
 data_loader = DataLoader.new(classes)
 training_documents = data_loader.documents('training')
 test_documents = data_loader.documents('test')

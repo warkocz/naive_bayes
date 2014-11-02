@@ -23,6 +23,7 @@ Classes:
 
 * motorcycles
 * space
+* politics
 
 Documents:
 
@@ -48,4 +49,5 @@ $ ruby script.rb
 ## Results
 
 * 100% of test documents from 'motorcycles' news group were classified correctly
-* 80% of test documents from 'space' news group were classified correctly 
+* 90% of test documents from 'space' news group were classified correctly 
+* 100% of test documents from 'politics' news group were classified correctly
